@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoMauiBookDatabase.Views.BooklistHomePage"
+               xmlns:viewmodel="clr-namespace:DemoMauiBookDatabase.ViewModels"
+               x:DataType="viewmodel:BooklistHomePageViewmodel"
+             xmlns:models="clr-namespace:DemoMauiBookDatabase.Models"
+             Title="{Binding Title}"
+             xmlns:controls="clr-namespace:DemoMauiBookDatabase.CustomControls">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Refresh" Command="{Binding LoadBookFromDatabaseCommand}"></ToolbarItem>
+        <ToolbarItem Text="+ Add Book" Command="{Binding NavigateToAddBookPageCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <ActivityIndicator IsVisible="{Binding LoadBookFromDatabaseCommand.IsRunning}" Color="Red" IsRunning="{Binding LoadBookFromDatabaseCommand.IsRunning}"  Margin="50,150,50,0"></ActivityIndicator>
+        <Grid RowDefinitions="*" IsVisible="{Binding GridVisibility}">
+            <CollectionView ItemsSource="{Binding Books}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate x:DataType="models:Book">
+                        <Frame Margin="2,5,2,0" Padding="5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer  Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:BooklistHomePageViewmodel}}, Path=NavigateToDetailsCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                <SwipeGestureRecognizer Direction="Left" Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:BooklistHomePageViewmodel}}, Path=DeleteBookDataCommand}" CommandParameter="{Binding .}"></SwipeGestureRecognizer>
+                                <SwipeGestureRecognizer Direction="Right" Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:BooklistHomePageViewmodel}}, Path=UpdateBookDataCommand}" CommandParameter="{Binding .}"></SwipeGestureRecognizer>
+                            </Frame.GestureRecognizers>
+
+                            <HorizontalStackLayout Spacing="20" Padding="0">
+                                <controls:CustomImageControl Base64Source="{Binding Image}" WidthRequest="50" HeightRequest="100"/>
+                                <VerticalStackLayout VerticalOptions="CenterAndExpand">
+                                    <Label Text="{Binding Title}"></Label>
+                                    <Label Text="{Binding Description}"></Label>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Frame>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </StackLayout>
+
+
+</ContentPage>

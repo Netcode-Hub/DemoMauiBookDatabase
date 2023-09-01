@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoMauiBookDatabase.Views.BookDetailsPage"
+             xmlns:viewmodel="clr-namespace:DemoMauiBookDatabase.ViewModels"
+            x:DataType="viewmodel:BookDetailsPageViewmodel"
+            xmlns:controls="clr-namespace:DemoMauiBookDatabase.CustomControls"
+            Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Margin="0,10,0,0">
+            <Frame>
+
+                <VerticalStackLayout>
+                    <controls:CustomImageControl Base64Source="{Binding BookModel.Image}" WidthRequest="100" HeightRequest="200"/>
+                    <Frame BorderColor="BlueViolet">
+                        <VerticalStackLayout Spacing="10">
+                            <Frame>
+                                <VerticalStackLayout Spacing="20">
+                                    <Label Text="Book SN: "  HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="18"/>
+                                    <Label Text="{Binding BookModel.Id}"  HorizontalOptions="CenterAndExpand" FontSize="18"/>
+                                </VerticalStackLayout>
+                            </Frame>
+
+                            <Frame>
+                                <VerticalStackLayout Spacing="20">
+                                    <Label Text="Book Title: "  HorizontalOptions="Center" FontAttributes="Bold" FontSize="18"/>
+                                    <Label Text="{Binding BookModel.Title}"  HorizontalOptions="CenterAndExpand" FontSize="18"/>
+                                </VerticalStackLayout>
+                            </Frame>
+
+                            <Frame>
+                                <VerticalStackLayout Spacing="20">
+                                    <Label Text="Book Description: "  HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="18"/>
+                                    <Label Text="{Binding BookModel.Description}"  HorizontalOptions="CenterAndExpand"  FontSize="18"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
